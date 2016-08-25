@@ -22,6 +22,17 @@
     imageView.image = [UIImage imageNamed:@"bg"];
     [self.view addSubview:imageView];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAlertView)];
+    [self.view addGestureRecognizer:tap];
+    
+    HZBAlertView *alter = [[HZBAlertView alloc] initWithTitle:@"是否需要现在去登录" contentText:nil leftButtonTitle:@"不登录" rightButtonTitle:@"立即登录" baseView:self.view];
+    alter.doneBlock = ^()
+    {
+        NSLog(@"跳到登录界面");
+    };
+}
+
+- (void)showAlertView {
     HZBAlertView *alter = [[HZBAlertView alloc] initWithTitle:@"是否需要现在去登录" contentText:nil leftButtonTitle:@"不登录" rightButtonTitle:@"立即登录" baseView:self.view];
     alter.doneBlock = ^()
     {

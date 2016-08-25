@@ -13,6 +13,7 @@
 @interface HZBAlertView ()
 {
     FXBlurView *shadowBgView; //模糊背景视图
+    FXBlurView *bgView; //模糊弹框背景视图
 }
 @end
 
@@ -58,11 +59,13 @@
     shadowBgView.blurRadius = 5;
     [self.baseView addSubview:shadowBgView];
     
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 260, 0)];
-    bgView.backgroundColor = [UIColor whiteColor];
+    bgView = [[FXBlurView alloc] initWithFrame:CGRectMake(0, 0, 260, 0)];
+    bgView.tintColor = [UIColor whiteColor];
     bgView.layer.cornerRadius = 10;
     [bgView.layer setMasksToBounds:YES];
-    [shadowBgView addSubview:bgView];
+    bgView.dynamic = YES;
+    bgView.blurRadius = 30;
+    [self.baseView addSubview:bgView];
     
     CGFloat titleH;
     titleH = self.title.length==0?0:20;
@@ -149,6 +152,7 @@
 {
     [self removeFromSuperview];
     shadowBgView.hidden = YES;
+    bgView.hidden = YES;
     if (self.dismissBlock) {
         self.dismissBlock();
     }
